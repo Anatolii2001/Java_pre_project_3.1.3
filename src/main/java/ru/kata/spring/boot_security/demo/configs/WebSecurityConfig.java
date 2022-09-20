@@ -51,13 +51,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationProvider;
     }
 
-//    // аутентификация inMemory
+    // аутентификация inMemory
 //    @Bean
 //    @Override
 //    public UserDetailsService userDetailsService() {
 //        UserDetails user =
 //                User.withUsername("user").password("user").roles("USER").build();
-//
 //        return new InMemoryUserDetailsManager(user);
 //    }
 }
