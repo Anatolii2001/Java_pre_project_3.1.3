@@ -16,6 +16,12 @@ public class AdminController {
         this.userService = userService;
     }
 
+    @GetMapping(value = "/")
+    public String print(ModelMap model) {
+        model.addAttribute("users", userService.getAllUsers());
+        return "admin";
+    }
+
     @GetMapping(value = "/admin")
     public String printUser(ModelMap model) {
         model.addAttribute("users", userService.getAllUsers());

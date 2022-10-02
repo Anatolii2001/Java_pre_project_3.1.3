@@ -10,29 +10,18 @@
 
 </head>
 <body>
-<h1>User_data</h1>
-<div>
-    <table border="1">
-        <tr>
-            <th>Id</th>
-            <th>Email</th>
-            <th>Username</th>
-            <th>Lastname</th>
-        </tr>
-        <tr th:each="user:${users}">
-            <td th:utext="${user.getId()}">Id</td>
-            <td th:utext="${user.getEmail()}">Email</td>
-            <td th:utext="${user.getUsername()}">Username</td>
-            <td th:utext="${user.getLastname()}">Lastname</td>
-            <td><a th:href="@{/{id}/edit(id=${user.getId()})}">Edit</a></td>
-            <td><form th:method="DELETE" th:action="@{/{id}/delete(id=${user.getId()})}">
-                <input type="submit" value="Delete">
-            </form></td>
-        </tr>
-    </table>
-    <br/>
-    <a href="/new">Create new user</a>
-    <button class="buttonLogout" onclick="window.location.href = '/logout';"></button>
-</div>
+<h1>User data</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Lastname</th>
+    </tr>
+    <td th:text="${user.getId()}">ID</td>
+    <td th:utext="${user.getUsername}">Name</a></td>
+    <td th:utext="${user.getLastname()}">Lastname</td>
+</table>
+<br/>
+<button class="buttonLogout" onclick="window.location.href = '/logout';">Logout</button>
 </body>
 </html>

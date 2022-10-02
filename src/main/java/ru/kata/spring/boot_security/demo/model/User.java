@@ -17,7 +17,6 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String email;
     private String username;
     private String lastname;
     private String password;
@@ -33,52 +32,15 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getUsername() {
         return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
     }
 
     public User() {
     }
 
-    public User(int id, String email, String username, String lastname, String password, Collection<Role> roles) {
+    public User(int id, String username, String lastname, String password, Collection<Role> roles) {
         this.id = id;
-        this.email = email;
         this.username = username;
         this.lastname = lastname;
         this.password = password;
@@ -91,6 +53,11 @@ public class User implements UserDetails {
                 getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
                         .collect(Collectors.toList());
         return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override
@@ -113,16 +80,40 @@ public class User implements UserDetails {
         return true;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(lastname, user.lastname) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
+        return id == user.id && Objects.equals(username, user.username) && Objects.equals(lastname, user.lastname) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, username, lastname, password, roles);
+        return Objects.hash(id, username, lastname, password, roles);
     }
 }

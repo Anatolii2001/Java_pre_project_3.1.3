@@ -1,10 +1,11 @@
-package ru.kata.spring.boot_security.demo.service;
+package ru.kata.spring.boot_security.demo.service.impl;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
+import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void update(int id, User updateUser) {
         User user = userRepository.findById(id).orElse(null);
+        assert user != null;
         if (updateUser.getPassword().equals(user.getPassword())) {
             userRepository.save(updateUser);
         } else {
