@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Data
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
 

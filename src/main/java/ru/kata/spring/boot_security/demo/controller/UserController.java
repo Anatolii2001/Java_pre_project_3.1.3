@@ -11,10 +11,10 @@ import java.security.Principal;
 
 @RestController
 public class UserController {
-    public UserService userService;
+    private UserService userService;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public void UserController(UserService userService) {
         this.userService = userService;
     }
 

@@ -11,27 +11,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import javax.sql.DataSource;
-
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserService userService;
     private SuccessUserHandler successUserHandler;
-    private DataSource dataSource;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public void setUserService(UserService userService, SuccessUserHandler successUserHandler) {
         this.userService = userService;
-    }
-
-    @Autowired
-    public void setSuccessUserHandler(SuccessUserHandler successUserHandler) {
         this.successUserHandler = successUserHandler;
-    }
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
     }
 
     @Override
@@ -39,13 +27,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/admin/**", "/").hasRole("ADMIN")
-                .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/user").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().successHandler(successUserHandler)
                 .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/")
+                .logout()
                 .permitAll();
     }
 
