@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New user</title>
+</head>
+<body>
+<form th:method="post" th:action="@{/admin}" th:object="${user}">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <label for="name">Name:</label>
+            </td>
+            <td>
+                <input type="text" th:field="*{username}" id="name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="password">Password: </label>
+            </td>
+            <td>
+                <input type="password" th:field="*{password}" id="password"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="city">City: </label>
+            </td>
+            <td>
+                <input type="text" th:field="*{city}" id="city"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="phone">Phone: </label>
+            </td>
+            <td>
+                <input type="text" th:field="*{phone}" id="phone"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="email">Email: </label>
+            </td>
+            <td>
+                <input type="email" th:field="*{email}" id="email"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="roles">Roles: </label>
+            </td>
+            <td>
+                <th:block th:each="role: ${listRoles}">
+                    <input type="checkbox" th:field="*{roles}"
+                           th:text="${role.name}" th:value="${role.id}" id="roles"/>
+                </th:block>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="submit" value="Create"/>
+    <form th:action="@{/admin}">
+        <input type="submit" value="List of users">
+    </form>
+</form>
+</body>
+</html>
