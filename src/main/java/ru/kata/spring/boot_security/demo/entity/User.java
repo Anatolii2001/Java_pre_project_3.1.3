@@ -16,7 +16,8 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "enabled")
     private boolean enabled;
@@ -36,7 +37,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -46,12 +47,13 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String city, String phone, String email) {
+    public User(String username, String city, String phone, String email, String password) {
         this.enabled = true;
         this.username = username;
         this.city = city;
         this.phone = phone;
         this.email = email;
+        this.password = password;
     }
 
     public long getId() {
@@ -117,7 +119,7 @@ public class User implements UserDetails {
         this.roles = authorities;
     }
 
-    public void addRole(Role role) {
+    public void add(Role role) {
         roles.add(role);
     }
 
@@ -145,4 +147,7 @@ public class User implements UserDetails {
         return true;
     }
 
+    public List<String> getShortRoles() {
+        return roles.stream().map(Role::getShortName).toList();
+    }
 }
