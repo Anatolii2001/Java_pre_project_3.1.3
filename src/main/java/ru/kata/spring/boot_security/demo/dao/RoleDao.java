@@ -5,8 +5,8 @@ import ru.kata.spring.boot_security.demo.entity.Role;
 import java.util.List;
 
 public interface RoleDao {
-    List<Role> setRoles();
+    Role findByIdRole(Long id);
+    List<Role> listRoles();
     Role findByName(String name);
-    Role findById(String id);
-    void createRole(Role role);
+    List<Role> listByName(List<String> name);
 }

@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.entity.User;
-import ru.kata.spring.boot_security.demo.service.RoleService;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -13,35 +12,28 @@ import java.util.List;
 
 @Component
 public class InitDb {
-    private final UserService userService;
-    private final RoleService roleService;
 
     @Autowired
-    public InitDb(UserService userService, RoleService roleService) {
-        this.userService = userService;
-        this.roleService = roleService;
-    }
+    private UserServiceImpl userService;
 
     @PostConstruct
-    public void postConstruct() {
-        List<User> users = userService.listUsers();
-        if (users.isEmpty()) {
-            Role adminRole = new Role("ROLE_ADMIN");
-            Role userRole = new Role("ROLE_USER");
-            roleService.addRole(adminRole);
-            roleService.addRole(userRole);
+    public void init() {
+        Role role1 = new Role("ROLE_ADMIN");
+        Role role2 = new Role("ROLE_USER");
 
-//            List<Role> testRoles = new ArrayList<>();
-//            testRoles.add(adminRole);
-//            testRoles.add(userRole);
-            List<Role> adminRoles = new ArrayList<>();
-            adminRoles.add(adminRole);
-            List<Role> userRoles = new ArrayList<>();
-            userRoles.add(userRole);
+        userService.addRole(role1);
+        userService.addRole(role2);
 
-//            userService.add(new User("test", "test", "test", "test@gmail.com", "test"));
-            userService.add(new User("admin", "admin", "admin", "admin@gmail.com", "admin"));
-            userService.add(new User("user", "user", "user", "user@gmail.com", "user"));
-        }
+        List<Role> roleAdmin = new ArrayList<>();
+        List<Role> roleUser = new ArrayList<>();
+
+        roleAdmin.add(role1);
+        roleUser.add(role2);
+
+        User user1 = new User("admin", "Moscow", "112", "admin@gmail.com", "admin",roleAdmin);
+        User user2 = new User("user", "Congo", "911", "user@gmail.com", "user",roleUser);
+
+        userService.add(user1);
+        userService.add(user2);
     }
 }
