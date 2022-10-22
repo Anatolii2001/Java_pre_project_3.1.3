@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Users</h1>
+<div>
+  <table border="1">
+    <tr>
+      <th>Id</th>
+      <th>Enabled</th>
+      <th>Username</th>
+      <th>City</th>
+      <th>Phone</th>
+      <th>Email</th>
+
+      <th></th>
+    </tr>
+    <tr th:each="user: ${users}">
+      <td th:utext="${user.getId()}"></td>
+      <td th:utext="${user.getUsername()}"></td>
+      <td th:utext="${user.getCity()}"></td>
+      <td th:utext="${user.getPhone()}"></td>
+      <td th:utext="${user.getEmail()}"></td>
+      <td><a th:href="@{/{id}/edit(id=${user.getId()})}">Edit</a></td>
+      <td><form th:method="DELETE" th:action="@{/{id}/delete(id=${user.getId()})}">
+        <input type="submit" value="Delete">
+      </form></td>
+    </tr>
+  </table>
+  <br/>
+  <a href="/new">Create new user</a>
+  <br/>
+  <button class="buttonLogout" onclick="window.location.href = '/logout';">Logout</button>
+</div>
+</body>
+</html>

@@ -25,13 +25,13 @@ public class AdminController {
     @GetMapping
     public String index(Model model) {
         model.addAttribute("users", userService.listUsers());
-        return "/templates/index";
+        return "index";
     }
 
-    @GetMapping("new")
+    @GetMapping("/new")
     public String newUser(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("roleList", userService.listRoles());
-        return "/templates/new";
+        return "new";
     }
 
     @PostMapping
@@ -40,7 +40,7 @@ public class AdminController {
         List<Role> list_r = userService.listByRole(list_s);
         user.setRoles(list_r);
         userService.add(user);
-        return "redirect:/templates";
+        return "redirect:/admin";
     }
 
     @GetMapping("/{id}")
@@ -48,7 +48,7 @@ public class AdminController {
         User user = userService.findById(id);
         model.addAttribute("user", user);
         model.addAttribute("roleList", userService.listRoles());
-        return "/templates/edit";
+        return "edit";
     }
 
     @PutMapping("/{id}")
@@ -57,12 +57,12 @@ public class AdminController {
         List<Role> list_r = userService.listByRole(list_s);
         user.setRoles(list_r);
         userService.update(user);
-        return "redirect:/templates";
+        return "redirect:/admin";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.delete(id);
-        return "redirect:/templates";
+        return "redirect:/admin";
     }
 }
