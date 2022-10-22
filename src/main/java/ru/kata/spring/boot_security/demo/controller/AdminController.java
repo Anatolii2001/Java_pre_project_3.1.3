@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("admin")
 public class AdminController {
 
     private final UserServiceImpl userService;
@@ -26,13 +25,13 @@ public class AdminController {
     @GetMapping
     public String index(Model model) {
         model.addAttribute("users", userService.listUsers());
-        return "/admin/index";
+        return "/templates/index";
     }
 
-    @GetMapping("/new")
+    @GetMapping("new")
     public String newUser(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("roleList", userService.listRoles());
-        return "/admin/new";
+        return "/templates/new";
     }
 
     @PostMapping
@@ -41,7 +40,7 @@ public class AdminController {
         List<Role> list_r = userService.listByRole(list_s);
         user.setRoles(list_r);
         userService.add(user);
-        return "redirect:/admin";
+        return "redirect:/templates";
     }
 
     @GetMapping("/{id}")
@@ -49,7 +48,7 @@ public class AdminController {
         User user = userService.findById(id);
         model.addAttribute("user", user);
         model.addAttribute("roleList", userService.listRoles());
-        return "/admin/edit";
+        return "/templates/edit";
     }
 
     @PutMapping("/{id}")
@@ -58,12 +57,12 @@ public class AdminController {
         List<Role> list_r = userService.listByRole(list_s);
         user.setRoles(list_r);
         userService.update(user);
-        return "redirect:/admin/";
+        return "redirect:/templates";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.delete(id);
-        return "redirect:/admin";
+        return "redirect:/templates";
     }
 }
