@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.entity;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Column;

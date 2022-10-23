@@ -29,13 +29,13 @@ public class AdminController {
     }
 
     @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user, Model model) {
+    public String user(/*@ModelAttribute("user")*/ User user, Model model) {
         model.addAttribute("roleList", userService.listRoles());
         return "new";
     }
 
     @PostMapping
-    public String create(@ModelAttribute("user") User user) {
+    public String create(/*@ModelAttribute("user")*/ User user) {
         List<String> list_s = user.getRoles().stream().map(r->r.getRole()).collect(Collectors.toList());
         List<Role> list_r = userService.listByRole(list_s);
         user.setRoles(list_r);
@@ -52,7 +52,7 @@ public class AdminController {
     }
 
     @PutMapping("/{id}")
-    public String update(@ModelAttribute("user") User user) {
+    public String update(/*@ModelAttribute("user")*/ User user) {
         List<String> list_s = user.getRoles().stream().map(r->r.getRole()).collect(Collectors.toList());
         List<Role> list_r = userService.listByRole(list_s);
         user.setRoles(list_r);

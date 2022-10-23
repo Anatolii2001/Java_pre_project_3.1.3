@@ -36,12 +36,13 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
-    public void addRole(Role role) {
+    public boolean addRole(Role role) {
         Role user_primary = roleDao.findByName(role.getRole());
         if(user_primary != null) {
-            return;
+            return false;
         }
             roleDao.add(role);
+        return true;
     }
 
     public Role findByNameRole(String name) {

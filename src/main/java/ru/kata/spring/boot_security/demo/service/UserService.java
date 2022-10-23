@@ -7,7 +7,7 @@ import ru.kata.spring.boot_security.demo.entity.User;
 import java.util.List;
 
 public interface UserService  extends UserDetailsService {
-    void addRole(Role role);
+    boolean addRole(Role role);
     Role findByNameRole(String name);
     List<Role> listRoles();
     Role findByIdRole(Long id);
@@ -15,7 +15,7 @@ public interface UserService  extends UserDetailsService {
     boolean add(User user);
     List<User> listUsers();
     void delete(Long id);
-    void update(User us);
+    void update(User user_up);
     User findById(Long id);
     User findByUsername(String username);
 }
