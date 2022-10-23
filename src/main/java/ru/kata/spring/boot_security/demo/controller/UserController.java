@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.kata.spring.boot_security.demo.dao.UserDaoImpl;
-import ru.kata.spring.boot_security.demo.entity.User;
+import ru.kata.spring.boot_security.demo.model.User;
 
 import java.security.Principal;
 
@@ -17,9 +17,11 @@ public class UserController {
     }
 
     @GetMapping(value = "/user")
-    public String user(ModelMap model, Principal principal) {
-        User user = userDao.findByName(principal.getName());
-        model.addAttribute("messages", user);
+    public String printWelcome(ModelMap model, Principal principal) {
+        User userDaoByName = userDao.findByName(principal.getName());
+        model.addAttribute("messages", userDaoByName);
         return "user";
     }
 }
+
+

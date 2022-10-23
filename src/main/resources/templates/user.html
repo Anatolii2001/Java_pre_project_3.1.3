@@ -1,32 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8">
-    <title>User</title>
+    <title>Spring Security Example</title>
 </head>
 <body>
-<label for="username">
-    Name:
-    <a th:text="${user.username}" id="username"></a>
-    <p></p>
-</label>
-<label for="city">
-    City:
-    <a th:text="${user.city}" id="city"></a>
-    <p></p>
-</label>
-<label for="phone">
-    Phone:
-    <a th:text="${user.phone}" id="phone"></a>
-    <p></p>
-</label>
-<label for="email">
-    Email:
-    <a th:text="${user.email}" id="email"></a>
-    <p></p>
-</label>
-<form th:action="@{/logout}" th:method="POST">
-    <input type="submit" value="Logout">
+<h1>User Data</h1>
+
+<div>
+    <th:block>
+        <h1 th:text="'User name - ' + ${messages.getUsername()}"></h1>
+        <h1 th:text="'Email - ' + ${messages.getEmail()}"></h1>
+        <th:block
+                th:each="msg : ${messages.getRoles()}">
+            <h1 th:text="${msg}"></h1>
+        </th:block>
+    </th:block>
+</div>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
 </form>
+
 </body>
 </html>

@@ -1,9 +1,9 @@
-package ru.kata.spring.boot_security.demo.init;
+package ru.kata.spring.boot_security.demo.userinit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_security.demo.entity.Role;
-import ru.kata.spring.boot_security.demo.entity.User;
+import ru.kata.spring.boot_security.demo.model.Role;
+import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import javax.annotation.PostConstruct;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class InitDb {
+public class DataInitializer {
 
     @Autowired
     private UserServiceImpl userService;
@@ -30,8 +30,8 @@ public class InitDb {
         roleAdmin.add(role1);
         roleUser.add(role2);
 
-        User user1 = new User("admin", "Moscow", "112", "admin@gmail.com", "admin",roleAdmin);
-        User user2 = new User("user", "Congo", "911", "user@gmail.com", "user",roleUser);
+        User user1 = new User("admin", "admin", "Moscow", "112", "admin@gmail.com", roleAdmin);
+        User user2 = new User("user", "user",  "Congo","911", "user@gmail.com", roleUser);
 
         userService.add(user1);
         userService.add(user2);

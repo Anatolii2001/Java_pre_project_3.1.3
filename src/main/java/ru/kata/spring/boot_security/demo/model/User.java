@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.entity;
+package ru.kata.spring.boot_security.demo.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,14 +13,13 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "enabled")
-    private boolean enabled;
 
     @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "city")
     private String city;
@@ -31,37 +30,30 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "password")
-    private String password;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "users_roles",
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(name="users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
-    public User() {
-    }
+    public User() {}
 
-    public User(String username, String city, String phone, String email, String password, List<Role> roles) {
-        this.enabled = true;
-        this.username = username;
+    public User(String userName, String password, String city, String phone, String email, List<Role> roles) {
+        this.username = userName;
+        this.password = password;
         this.city = city;
         this.phone = phone;
         this.email = email;
-        this.password = password;
         this.roles = roles;
     }
 
-    public User(Long id, boolean enabled, String username, String city, String phone, String email, String password, List<Role> roles) {
+    public User(Long id, String userName, String password, String city, String phone, String email, List<Role> roles) {
         this.id = id;
-        this.enabled = enabled;
-        this.username = username;
+        this.username = userName;
+        this.password = password;
         this.city = city;
         this.phone = phone;
         this.email = email;
-        this.password = password;
         this.roles = roles;
     }
 
@@ -69,16 +61,16 @@ public class User implements UserDetails {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority>getAuthorities() {
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
 
@@ -112,22 +104,6 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setPassword (String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     public String getCity() {
         return city;
     }
@@ -144,6 +120,14 @@ public class User implements UserDetails {
         this.phone = phone;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -156,17 +140,18 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", enabled=" + enabled +
                 ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", city='" + city + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", roles=" + getRoles() +
                 '}';
     }
 }
+
