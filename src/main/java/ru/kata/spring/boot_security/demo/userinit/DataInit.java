@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class DataInitializer {
+public class DataInit {
 
     @Autowired
     private UserServiceImpl userService;
