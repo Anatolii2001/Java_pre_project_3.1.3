@@ -27,16 +27,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/user/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                .antMatchers("/", "/index").permitAll() // доступность всем
+                .antMatchers("/authenticated/**").authenticated()
+                .antMatchers("/user/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // разрешаем входить на /user пользователям с ролью User
+                .antMatchers("/admin/**").access("hasAnyRole('ROLE_ADMIN')")
                 .and()
-                .formLogin().successHandler(successUserHandler)
-                .permitAll()
+                .formLogin()
+                .loginPage("/login")// Spring сам подставит свою логин форму
+                .successHandler(successUserHandler) // подключаем наш SuccessHandler для перенаправления по ролям
                 .and()
                 .logout()
-                .permitAll();
+                .logoutSuccessUrl("/");
     }
 
     @Bean

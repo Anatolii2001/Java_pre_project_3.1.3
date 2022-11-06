@@ -15,7 +15,7 @@
 <header>
     <nav class="navbar navbar-expand-gl navbar-dark bg-dark">
         <a class="navbar-brand"
-           th:text="|${messages.getEmail()} with roles: ADMIN|">
+           th:text="|${messages.getEmail()} with roles: ${messages.getRoles()}|">
         </a>
         <div class="nav ml-auto">
             <a th:href="@{/logout}" method="post">Logout</a>
@@ -29,7 +29,7 @@
             <a class="nav-link" href="/user">User</a>
         </nav>
     </div>
-    <div class="col-auto bg-light px-md-5">
+    <div class="col-10 bg-light px-md-5">
         <div th:switch="${users}">
             <h2 th:case="null">No users found!</h2>
             <div th:case="*">
@@ -95,7 +95,7 @@
 
                                         <div class="col text-center"><b>Role</b></div>
                                         <div class="row justify-content-center">
-                                            <div class="col-10">
+                                            <div class="col-auto">
                                                 <select multiple class="form-control" size="2" th:name="roles"
                                                         th:id="role">
                                                     <option value="">no role</option>
