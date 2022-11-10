@@ -128,7 +128,7 @@
 <!--                                        <th>password</th>-->
                                         <th>City</th>
                                         <th>Phone</th>
-                                        <th>Email</th>
+                                        <th>Name</th>
                                         <th>Roles</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
@@ -179,7 +179,7 @@
                                                                 <label for="username" class="col text-center"><b>Username</b></label>
                                                                 <input type="text" class="form-control" name="username"
                                                                        id="username"
-                                                                       th:value="${user.username}">
+                                                                       th:value="${user.email}">
                                                             </div>
 
                                                             <div class="form-group">
@@ -198,8 +198,8 @@
 
                                                             <div class="form-group">
                                                                 <div class="col-sm-6 container text-center"><b>Email</b></div>
-                                                                <input type="email" th:name="email" class="form-control"
-                                                                       th:value="${user.email}">
+                                                                <input type="text" th:name="email" class="form-control"
+                                                                       th:value="${user.username}">
                                                             </div>
 
                                                             <div class="form-group">
@@ -282,10 +282,10 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <div class="col-sm-6 container text-center"><b>Email</b></div>
-                                                                <div th:text="${user.email}" type="email"
+                                                                <div class="col-sm-6 container text-center"><b>Name</b></div>
+                                                                <div th:text="${user.email}" type="text"
                                                                      th:field="*{user.email}" name="email"
-                                                                     class="form-control" placeholder="Enter Email"></div>
+                                                                     class="form-control" placeholder="Enter Name"></div>
                                                             </div>
 
                                                             <div class="form-group">

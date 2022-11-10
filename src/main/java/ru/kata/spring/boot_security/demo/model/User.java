@@ -65,8 +65,8 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public void setUsername(String userName) {
-        this.username = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -125,7 +125,7 @@ public class User implements UserDetails {
     }
 
     public String getEmail() {
-        return email;
+        return username;
     }
 
     public void setEmail(String email) {
@@ -154,4 +154,3 @@ public class User implements UserDetails {
                 '}';
     }
 }
-

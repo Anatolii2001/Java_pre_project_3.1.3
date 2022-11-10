@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDao {
                 .getResultList().stream().findAny().orElse(null);
     }
 
-    public  void delete(Long id) {
+    public void delete(Long id) {
         User user = entityManager.find(User.class, id);
         entityManager.remove(user);
     }
@@ -41,4 +41,3 @@ public class UserDaoImpl implements UserDao {
         return entityManager.find(User.class, id);
     }
 }
-
